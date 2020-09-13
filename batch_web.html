@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script language="JavaScript" type="text/javascript" src="batch_web.js"></script>
+    <script language="JavaScript" type="text/javascript" src="pfcUtils.js"></script>
+</head>
+
+<body>
+    <form name="f">
+        Lista rysunków do konwertowania (oddzielona spacją lub w nowych wierszach, nazwa + rozszerzenie):<br />
+        <input type="button" name="getdrws" value="&darr; rysunki z workspace &darr;" onclick="Convert()" /><br />
+        <textarea name="drawings" id="drawings" cols="30" rows="10"></textarea><br />
+        <input type="button" name="todxf" value="Zapisz DXFy" onclick="convertToDxf()" />
+        <br /><a id="mesg"></a>
+    </form>
+</body>
+
+</html>
