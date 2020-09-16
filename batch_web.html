@@ -8,10 +8,12 @@
 
 <body>
     <form name="f">
-        Lista rysunków do konwertowania (oddzielona spacją lub w nowych wierszach, nazwa + rozszerzenie):<br />
-        <input type="button" name="getdrws" value="&darr; rysunki z workspace &darr;" onclick="Convert()" /><br />
-        <textarea name="drawings" id="drawings" cols="30" rows="10"></textarea><br />
+        Lista rysunków do konwertowania<br>(oddzielona spacją lub w nowych wierszach, nazwa + rozszerzenie):<br />
+        <input type="button" name="getdrws" value="&darr; rysunki z workspace &darr;" onclick="getAllDrws()" /><br />
+        <textarea name="drawings" id="drawings" cols="20" rows="20"></textarea><br />
         <input type="button" name="todxf" value="Zapisz DXFy" onclick="convertToDxf()" />
+        <br /><a id="filescount"></a>
+        <br /><a id="workingdir"></a>
         <br /><a id="mesg"></a>
     </form>
 </body>

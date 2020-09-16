@@ -1,38 +1,37 @@
-function Convert() {
+function getAllDrws() {
   if (!pfcIsWindows())
     netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 
-  var form_elem = document.getElementById("mesg");
+  document.getElementById("drawings").value = "";
   var wpwl = pfcGetScript();
   document.pwl = wpwl;
-
-  model = document.pwl.pwlMdlOpen("drw0001.drw", "", true);
   var session = pfcGetProESession();
-  var drawing = session.GetModel(
-    "drw0001.drw",
-    pfcCreate("pfcModelType").MDL_DRAWING
+
+  var activeServer = session.GetActiveServer();
+  var alias = activeServer.Alias;
+  var workspace = activeServer.ActiveWorkspace;
+  // var workspace = activeServer.Server.GetActiveWorkspace
+  var workspacePath = "wtws://" + alias + "/" + workspace;
+
+  var drwsWithPathList = session.ListFiles(
+    "*.drw",
+    pfcCreate("pfcFileListOpt").FILE_LIST_LATEST,
+    workspacePath
   );
-
-  var expInstructions = pfcCreate("pfcDXFExportInstructions").Create();
-  try {
-    drawing.Export("drw0001.dxf", expInstructions);
-  } catch (e) {
-    form_elem.innerHTML = e.toString();
-  }
-  document.pwl.pwlMdlErase("drw0001.drw");
-
-  model = document.pwl.pwlMdlOpen("drw0002.drw", "", true);
-  var drawing = session.GetModel(
-    "drw0002.drw",
-    pfcCreate("pfcModelType").MDL_DRAWING
-  );
-  try {
-    drawing.Export("drw0002.dxf", expInstructions);
-  } catch (e) {
-    form_elem.innerHTML = e.toString();
+  var drwsList = null;
+  var index;
+  for (index = 0; index < drwsWithPathList.length; ++index) {
+    drwsList =
+      drwsList +
+      drwsWithPathList[index].substring(
+        drwsWithPathList[index].lastIndexOf("/" + 1)
+      );
+    drwsList = drwsList + "\n";
   }
 
-  document.pwl.pwlMdlErase("drw0002.drw");
+  document.getElementById("drawings").value = drwsList;
+  document.getElementById("filescount").innerHTML = "" + (index + 1) + " rysunków";
+  document.getElementById("workingdir").innerHTML = session.GetCurrentDirectory();
 }
 
 function convertToDxf() {
@@ -40,8 +39,9 @@ function convertToDxf() {
     netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
   var wpwl = pfcGetScript();
   document.pwl = wpwl;
-  var form_elem = document.getElementById("mesg");
-
+  
+  document.getElementById("workingdir").innerHTML = session.GetCurrentDirectory();
+  
   var drawings = document.getElementById("drawings").value.split(/\b\s+/);
   var index;
   for (index = 0; index < drawings.length; ++index) {
@@ -57,5 +57,3 @@ function convertToDxf() {
     document.pwl.pwlMdlErase(drawings[index]);
   }
 }
-
-function getDrws() {}
