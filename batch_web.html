@@ -11,9 +11,9 @@
         Lista rysunków do konwertowania<br>(oddzielona spacją lub w nowych wierszach, nazwa + rozszerzenie):<br />
         <input type="button" name="getdrws" value="&darr; rysunki z workspace &darr;" onclick="getAllDrws()" /><br />
         <textarea name="drawings" id="drawings" cols="20" rows="20"></textarea><br />
-        <input type="button" name="todxf" value="Zapisz DXFy" onclick="convertToDxf()" />
-        <br /><a id="filescount"></a>
-        <br /><a id="workingdir"></a>
+        <p>Zapisz do katalogu roboczego:</p>
+        <input type="button" name="todxf" value="DXFy" onclick="convertToDxf()" />
+        <input type="button" name="todxf" value="PDFy" onclick="convertToPdf()" />
         <br /><a id="mesg"></a>
     </form>
 </body>
