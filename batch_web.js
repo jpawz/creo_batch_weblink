@@ -89,7 +89,7 @@ function convertToPdf() {
 
   var index;
   for (index = 0; index < drawings.length; ++index) {
-    document.pwl.pwlMdlOpen(drawings[index], "", true);
+    wpwl.pwlMdlOpen(drawings[index], "", true);
     var session = pfcGetProESession();
     var drawing = session.GetModel(
       drawings[index],
@@ -97,7 +97,8 @@ function convertToPdf() {
     );
     var outputName = drawings[index].substring(0, drawings[index].length - 3);
     drawing.Export(outputName + "pdf", expInstructions);
-    document.pwl.pwlMdlErase(drawings[index]);
+    drawing.Erase();
+    wpwl.pwlMdlErase(drawings[index]);
   }
 
   alert("koniec");
